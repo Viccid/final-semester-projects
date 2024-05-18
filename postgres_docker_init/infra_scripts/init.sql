@@ -1,44 +1,28 @@
 -- Create schema
-CREATE SCHEMA IF NOT EXISTS MOVIE_DATA;
+CREATE SCHEMA IF NOT EXISTS NETFLIX_DATA;
 
 -- create and populate tables
-create table if not exists MOVIE_DATA.MOVIES
+create table if not exists NETFLIX_DATA.NETFLIX
 (
-    index serial primary key,       
-    budget bigint,                  
-    genres text,                    
-    id  integer unique,             
-    keywords text,                  
-    original_language varchar(10),  
-    original_title varchar(255),    
-    overview text,                  
-    popularity float,               
-    release_date date,              
-    revenue bigint,                 
-    runtime integer,        
-    status varchar(50),          
-    title varchar(255),             
-    vote_count integer,             
-    cast text,                     
-    director varchar(255)      
+    id INT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    rating VARCHAR(10),
+    ratingLevel VARCHAR(255),
+    ratingDescription TEXT,
+    release_year INT,
+    user_rating_score DECIMAL(5,2),
+    user_rating_size INT
 );
 
+COPY NETFLIX_DATA.NETFLIX (
+    id,
+    title,
+    rating,
+    ratingLevel,
+    ratingDescription,
+    release_year,
+    user_rating_score,
+    user_rating_size
+    ) 
 
-COPY MOVIE_DATA.MOVIES (
-    index, 
-    budget, 
-    genres,                    
-    id,keywords,                  
-    original_language,  
-    original_title,    
-    overview,                  
-    popularity,               
-    release_date,              
-    revenue,                 
-    runtime,        
-    status,          
-    title,             
-    vote_count,             
-    cast,                     
-    director)
-FROM '/data/movies.csv' DELIMITER ',' CSV HEADER;
+FROM '/data/netflix.csv' DELIMITER ',' CSV HEADER;
