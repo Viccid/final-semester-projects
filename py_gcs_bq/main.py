@@ -69,13 +69,13 @@ def main():
         bigquery.SchemaField("Final_Price", "FLOAT"),
     ]
 
-    # Create a dataset
+    # this create a dataset
     create_dataset(client, DATASET_ID)
 
-    # Create the table
+    # this create the table
     create_table(client, DATASET_ID, TABLE_ID, schema)
 
-    # Configure the load job
+    # configure the load job
     job_config = bigquery.LoadJobConfig(
         skip_leading_rows=1,
         autodetect=True,
