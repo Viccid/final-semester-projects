@@ -13,7 +13,8 @@ from config import (
     SCHEMA_FILE,
 )
 
-# Ensure the GOOGLE_APPLICATION_CREDENTIALS environment variable is set
+# This ensure the GOOGLE_APPLICATION_CREDENTIALS environment variable is set
+
 if not os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):
     raise EnvironmentError(
         "GOOGLE_APPLICATION_CREDENTIALS environment variable is not set."
@@ -87,9 +88,14 @@ def load_data_into_bigquery(dataset_name, table_name, source_uri, schema_file):
         source_uri, table_ref, job_config=job_config
     )
 
-    load_job.result()  # Wait for the job to complete
+    # Wait for the job to complete
+
+    load_job.result()
 
     print(f"Loaded {load_job.output_rows} rows into {dataset_name}:{table_name}")
+
+    # alternatively
+    # print(f"successfully wrote{dataset_name} to {table_name}")
 
 
 def main():
@@ -111,6 +117,8 @@ def main():
     # Load data into BigQuery
     source_uri = f"gs://{GCS_BUCKET_NAME}/{FILE_NAME}"
     load_data_into_bigquery(BIGQUERY_DATASET, BIGQUERY_TABLE, source_uri, SCHEMA_FILE)
+
+    print("All tables and data loaded successfully.")
 
 
 if __name__ == "__main__":
